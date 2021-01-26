@@ -1,7 +1,13 @@
 package main;
 
+import java.lang.*;
 
 public class BalancedBrackets {
+
+    public static void main(String []args){
+        System.out.println(BalancedBrackets.hasBalancedBrackets("Launch[Code]"));
+    }
+
     /**
      * The function BalancedBrackets should return true if and only if
      * the input string has a set of "balanced" brackets.
@@ -21,15 +27,37 @@ public class BalancedBrackets {
      * @param str - to be validated
      * @return true if balanced, false otherwise
      */
+
     public static boolean hasBalancedBrackets(String str) {
-        int brackets = 0;
+        String bracket = "";
+
         for (char ch : str.toCharArray()) {
-            if (ch == '[') {
-                brackets++;
-            } else if (ch == ']') {
-                brackets--;
+            if (ch == ']' && bracket.isEmpty()) {
+                return false;
+            } else if (ch == '[' && bracket.equals("[")) {
+                return false;
+            } else if (ch == '[' && bracket.isEmpty()) {
+                String currentBracket = Character.toString(ch);
+                bracket = currentBracket;
+            } else if (ch == ']' && bracket.equals("[")) {
+                bracket = "";
             }
         }
-        return brackets == 0;
+
+        if (bracket.length() >= 1) {
+            return false;
+        }
+        return true;
     }
+//    public static boolean hasBalancedBrackets(String str) {
+//        int brackets = 0;
+//        for (char ch : str.toCharArray()) {
+//            if (ch == '[') {
+//                brackets++;
+//            } else if (ch == ']') {
+//                brackets--;
+//            }
+//        }
+//        return brackets == 0;
+//    }
 }
